@@ -69,33 +69,31 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
-            const msg = document.getElementById('message');
+    // FIX: Declare the variable so JS doesn't crash with a ReferenceError
+    let superSecretPassword; 
 
-            // Check if the user is 'admin'
-            if (user === 'admin') {
-                // Dave forgot to define superSecretPassword!
-                // So superSecretPassword is undefined.
-                
-                // We are comparing the string they typed to the undefined variable.
-                // If they type the word "undefined", this will be true!
-                
-                if (pass === String(superSecretPassword)) {
-                    msg.textContent = "ACCESS GRANTED. Welcome, Admin. Dave is proud of you.";
-                    msg.style.color = "gold";
-                    alert("FLAG: CTF{Dave_Is_Not_A_Real_Developer}");
-                } else {
-                    msg.textContent = "ACCESS DENIED. Dave is crying.";
-                    msg.style.color = "red";
-                }
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        const msg = document.getElementById('message');
+
+        if (user === 'admin') {
+            // Now this comparison works safely!
+            // String(undefined) becomes "undefined"
+            if (pass === String(superSecretPassword)) {
+                msg.textContent = "ACCESS GRANTED. Welcome, Admin. Dave is proud of you.";
+                msg.style.color = "gold";
+                alert("FLAG: CTF{Dave_Is_Not_A_Real_Developer}");
             } else {
-                msg.textContent = "That's not the admin username, buddy.";
-                msg.style.color = "yellow";
+                msg.textContent = "ACCESS DENIED. Dave is crying.";
+                msg.style.color = "red";
             }
-        });
-    </script>
+        } else {
+            msg.textContent = "That's not the admin username, buddy.";
+            msg.style.color = "yellow";
+        }
+    });
+</script>
 </body>
 </html>
