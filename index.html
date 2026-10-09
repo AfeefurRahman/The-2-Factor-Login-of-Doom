@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CyberCorp Secure Login</title>
+    <style>
+        /* 
+           NOTE TO SELF: 
+           DO NOT TOUCH THIS. 
+           IF YOU ARE READING THIS, YOU ARE A HACKER. 
+           
+           THE PASSWORD IS NOT 'admin'. 
+           JUST KIDDING. 
+           
+           ACTUALLY, I FORGOT THE PASSWORD. 
+           BUT WAIT - I DIDN'T DEFINE THE VARIABLE!
+           SO IT'S UNDEFINED. 
+           
+           IF THEY SUBMIT AN EMPTY STRING, IT MIGHT MATCH?
+           NO, THAT WON'T WORK.
+           
+           BUT IF I COMPARE 'undefined' === undefined...
+           THAT WOULD BE TRUE!
+           
+           BUT HOW DO THEY TYPE 'undefined'?
+           OH RIGHT, THEY CAN JUST TYPE THE WORD 'undefined'.
+           
+           I AM A GENIUS. 
+        */
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            border: 2px solid #0f0;
+            padding: 2rem;
+            background: #111;
+        }
+        input {
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>CyberCorp Secure Login</h1>
+        <form id="loginForm">
+            <input type="text" placeholder="Username" id="username"><br>
+            <input type="text" placeholder="Password" id="password"><br>
+            <button type="submit">Login</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const msg = document.getElementById('message');
+
+            // Check if the user is 'admin'
+            if (user === 'admin') {
+                // Dave forgot to define superSecretPassword!
+                // So superSecretPassword is undefined.
+                
+                // We are comparing the string they typed to the undefined variable.
+                // If they type the word "undefined", this will be true!
+                
+                if (pass === String(superSecretPassword)) {
+                    msg.textContent = "ACCESS GRANTED. Welcome, Admin. Dave is proud of you.";
+                    msg.style.color = "gold";
+                    alert("FLAG: CTF{Dave_Is_Not_A_Real_Developer}");
+                } else {
+                    msg.textContent = "ACCESS DENIED. Dave is crying.";
+                    msg.style.color = "red";
+                }
+            } else {
+                msg.textContent = "That's not the admin username, buddy.";
+                msg.style.color = "yellow";
+            }
+        });
+    </script>
+</body>
+</html>
