@@ -3,28 +3,9 @@
 <head>
     <title>CyberCorp Secure Login</title>
     <style>
-        /* 
-           NOTE TO SELF: 
-           DO NOT TOUCH THIS. 
-           IF YOU ARE READING THIS, YOU ARE A HACKER. 
-           
-           THE PASSWORD IS NOT 'admin'. 
-           JUST KIDDING. 
-           
-           ACTUALLY, I FORGOT THE PASSWORD. 
-           BUT WAIT - I DIDN'T DEFINE THE VARIABLE!
-           SO IT'S UNDEFINED. 
-           
-           IF THEY SUBMIT AN EMPTY STRING, IT MIGHT MATCH?
-           NO, THAT WON'T WORK.
-           
-           BUT IF I COMPARE 'undefined' === undefined...
-           THAT WOULD BE TRUE!
-           
-           BUT HOW DO THEY TYPE 'undefined'?
-           OH RIGHT, THEY CAN JUST TYPE THE WORD 'undefined'.
-           
-           I AM A GENIUS. 
+        /*
+           NOTE TO SELF: I forgot to set the password. Oops.
+           (Hackers: nothing to see here.)
         */
         body {
             background-color: #000;
@@ -60,17 +41,21 @@
 <body>
     <div class="login-box">
         <h1>CyberCorp Secure Login</h1>
+        <p>2-Factor Authentication: Enabled*</p>
         <form id="loginForm">
             <input type="text" placeholder="Username" id="username"><br>
-            <input type="text" placeholder="Password" id="password"><br>
+            <input type="password" placeholder="Password" id="password"><br>
             <button type="submit">Login</button>
         </form>
         <p id="message"></p>
     </div>
 
     <script>
-    // FIX: Declare the variable so JS doesn't crash with a ReferenceError
-    let superSecretPassword; 
+    // Dave never gave this a value...
+    let superSecretPassword;
+
+    // Flag is stored encoded so it isn't readable in view-source
+    const encodedFlag = "Q1RGe0RhdmVfSXNfTm90X0FfUmVhbF9EZXZlbG9wZXJ9";
 
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -79,12 +64,12 @@
         const msg = document.getElementById('message');
 
         if (user === 'admin') {
-            // Now this comparison works safely!
-            // String(undefined) becomes "undefined"
-            if (pass === String(superSecretPassword)) {
+            // Dave's "safety" check: an empty input becomes undefined,
+            // which matches the undefined password
+            if ((pass || undefined) === superSecretPassword) {
                 msg.textContent = "ACCESS GRANTED. Welcome, Admin. Dave is proud of you.";
                 msg.style.color = "gold";
-                alert("FLAG: CTF{Dave_Is_Not_A_Real_Developer}");
+                alert("FLAG: " + atob(encodedFlag));
             } else {
                 msg.textContent = "ACCESS DENIED. Dave is crying.";
                 msg.style.color = "red";
@@ -94,6 +79,6 @@
             msg.style.color = "yellow";
         }
     });
-</script>
+    </script>
 </body>
 </html>
